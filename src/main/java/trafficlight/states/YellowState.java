@@ -8,7 +8,7 @@ public class YellowState implements State {
         context.setPreviousState(context.getCurrentState());
         if (prev == context.getRedState()) {
             context.setCurrentState(context.getGreenState());
-        } else {
+        } else if (prev == context.getGreenState()) {
             context.setCurrentState(context.getRedState());
         }
     }

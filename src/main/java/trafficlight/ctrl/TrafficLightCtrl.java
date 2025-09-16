@@ -1,7 +1,9 @@
+
 package trafficlight.ctrl;
 
 import trafficlight.gui.TrafficLightGui;
 import trafficlight.states.State;
+import trafficlight.states.TrafficLightColor;
 
 public class TrafficLightCtrl {
 
@@ -74,13 +76,12 @@ public class TrafficLightCtrl {
         try {
             // Check for null states
             if (previousState == null || currentState == null) {
-                throw new IllegalStateException("ERROR: previousState or currentState is null.");
+                throw new IllegalStateException("CTRL ERROR: previousState or currentState is null.");
             }
             // Check for invalid Yellow state transitions
-            if (currentState.getState() == trafficlight.states.TrafficLightColor.YELLOW &&
-                    !(previousState.getState() == trafficlight.states.TrafficLightColor.RED
-                            || previousState.getState() == trafficlight.states.TrafficLightColor.GREEN)) {
-                throw new IllegalStateException("ERROR: " + previousState.getState() + " may not transition to YELLOW.");
+            if (currentState.getState() == TrafficLightColor.YELLOW &&
+                !(previousState.getState() == TrafficLightColor.RED || previousState.getState() == TrafficLightColor.GREEN)) {
+                throw new IllegalStateException("CTRL ERROR: " + previousState.getState() + " may not transition to YELLOW.");
             }
             // Advance to next state and update GUI
             currentState.nextState(this);
