@@ -1,81 +1,32 @@
 package trafficlight.states;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import trafficlight.ctrl.TrafficLightCtrl;
 
-class YellowStateTests {
-    @Test
-    void testYellowSelfTransitionPrevention() {
-            System.out.println("------------------------------");
-            System.out.println(new Object(){}.getClass().getEnclosingMethod().getName());
-            System.out.println("------------------------------");
-        TrafficLightCtrl ctrl = new TrafficLightCtrl();
-        ctrl.setCurrentState(ctrl.getYellowState());
-        ctrl.setPreviousState(ctrl.getYellowState());
-            ctrl.nextState();
-        assertNotEquals(ctrl.getYellowState(), ctrl.getCurrentState());
-    }
-    
-    @Test
-    void testYellowFullCycleReturnsToYellow() {
-            System.out.println("------------------------------");
-            System.out.println(new Object(){}.getClass().getEnclosingMethod().getName());
-            System.out.println("------------------------------");
-        TrafficLightCtrl ctrl = new TrafficLightCtrl();
-        ctrl.setPreviousState(ctrl.getRedState());
-        ctrl.setCurrentState(ctrl.getYellowState());
-            for (int i = 0; i < 4; i++) {
-                ctrl.nextState();
-            }
-            assertEquals(ctrl.getYellowState(), ctrl.getCurrentState());
-    }
+class YellowStateTests extends AbstractStateTests {
+
 
     @Test
-    void testYellowHalfCycleReturnsToYellow() {
-            System.out.println("------------------------------");
-            System.out.println(new Object(){}.getClass().getEnclosingMethod().getName());
-            System.out.println("------------------------------");
-        TrafficLightCtrl ctrl = new TrafficLightCtrl();
-        ctrl.setPreviousState(ctrl.getRedState());
-        ctrl.setCurrentState(ctrl.getYellowState());
-            for (int i = 0; i < 2; i++) {
-                ctrl.nextState();
-            }
-            assertEquals(ctrl.getYellowState(), ctrl.getCurrentState());
+    void testYellowIsFollowedByGreenWhenPrecededByRed() {
+    assertCycle(ctrl.getYellowState(),ctrl.getRedState(), 1, ctrl.getGreenState());
     }
 
     @Test
     void testYellowIsFollowedByRedWhenPrecededByGreen() {
-            System.out.println("------------------------------");
-            System.out.println(new Object(){}.getClass().getEnclosingMethod().getName());
-            System.out.println("------------------------------");
-        TrafficLightCtrl ctrl = new TrafficLightCtrl();
-        ctrl.setCurrentState(ctrl.getYellowState());
-        ctrl.setPreviousState(ctrl.getGreenState());
-            ctrl.nextState();
-        assertEquals(ctrl.getRedState(), ctrl.getCurrentState());
+    assertCycle(ctrl.getYellowState(),ctrl.getGreenState(), 1, ctrl.getRedState());
+    }
+    
+    @Test
+    void testYellowHalfCycleReturnsToYellow() {
+    assertCycle(ctrl.getYellowState(), ctrl.getRedState(), 2, ctrl.getYellowState());
     }
 
     @Test
-    void testYellowIsFollowedByGreenWhenPrecededByRed() {
-            System.out.println("------------------------------");
-            System.out.println(new Object(){}.getClass().getEnclosingMethod().getName());
-            System.out.println("------------------------------");
-        TrafficLightCtrl ctrl = new TrafficLightCtrl();
-        ctrl.setCurrentState(ctrl.getYellowState());
-        ctrl.setPreviousState(ctrl.getRedState());
-            ctrl.nextState();
-        assertEquals(ctrl.getGreenState(), ctrl.getCurrentState());
+    void testYellowFullCycleReturnsToYellow() {
+    assertCycle(ctrl.getYellowState(), ctrl.getRedState(), 4, ctrl.getYellowState());
     }
 
     @Test
     void testYellowTurnsLightYellow() {
-            System.out.println("------------------------------");
-            System.out.println(new Object(){}.getClass().getEnclosingMethod().getName());
-            System.out.println("------------------------------");
-        TrafficLightCtrl ctrl = new TrafficLightCtrl();
-        ctrl.setCurrentState(ctrl.getYellowState());
-        assertEquals(TrafficLightColor.YELLOW, ctrl.getCurrentState().getState());
+        assertStateColor(ctrl.getYellowState(), TrafficLightColor.YELLOW);
     }
 }

@@ -1,57 +1,21 @@
 package trafficlight.states;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import trafficlight.ctrl.TrafficLightCtrl;
 
-class RedStateTests {
+class RedStateTests extends AbstractStateTests {
+
     @Test
-    void testRedSelfTransitionPrevention() {
-        System.out.println("------------------------------");
-        System.out.println(new Object() {
-        }.getClass().getEnclosingMethod().getName());
-        System.out.println("------------------------------");
-        TrafficLightCtrl ctrl = new TrafficLightCtrl();
-        ctrl.setCurrentState(ctrl.getRedState());
-        ctrl.setPreviousState(ctrl.getRedState());
-        ctrl.nextState();
-        assertNotEquals(ctrl.getRedState(), ctrl.getCurrentState());
+    void testRedIsFollowedByYellow() {
+    assertCycle(ctrl.getYellowState(), ctrl.getRedState(), 1, ctrl.getYellowState());
     }
 
     @Test
     void testRedFullCycleReturnsToRed() {
-        System.out.println("------------------------------");
-        System.out.println(new Object() {
-        }.getClass().getEnclosingMethod().getName());
-        System.out.println("------------------------------");
-        TrafficLightCtrl ctrl = new TrafficLightCtrl();
-        ctrl.setCurrentState(ctrl.getRedState());
-        for (int i = 0; i < 4; i++) {
-            ctrl.nextState();
-        }
-        assertEquals(ctrl.getRedState(), ctrl.getCurrentState());
-    }
-
-    @Test
-    void testRedIsFollowedByYellow() {
-        System.out.println("------------------------------");
-        System.out.println(new Object() {
-        }.getClass().getEnclosingMethod().getName());
-        System.out.println("------------------------------");
-        TrafficLightCtrl ctrl = new TrafficLightCtrl();
-        ctrl.setCurrentState(ctrl.getRedState());
-        ctrl.nextState();
-        assertEquals(ctrl.getYellowState(), ctrl.getCurrentState());
+    assertCycle(ctrl.getYellowState(), ctrl.getRedState(), 4, ctrl.getRedState());
     }
 
     @Test
     void testRedTurnsLightRed() {
-        System.out.println("------------------------------");
-        System.out.println(new Object() {
-        }.getClass().getEnclosingMethod().getName());
-        System.out.println("------------------------------");
-        TrafficLightCtrl ctrl = new TrafficLightCtrl();
-        ctrl.setCurrentState(ctrl.getRedState());
-        assertEquals(TrafficLightColor.RED, ctrl.getCurrentState().getState());
+        assertStateColor(ctrl.getRedState(), TrafficLightColor.RED);
     }
 }
