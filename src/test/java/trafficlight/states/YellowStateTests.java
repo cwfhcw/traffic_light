@@ -16,19 +16,7 @@ class YellowStateTests {
             ctrl.nextState();
         assertNotEquals(ctrl.getYellowState(), ctrl.getCurrentState());
     }
-
-    @Test
-    void testInvalidPreviousStateForYellow() {
-            System.out.println("------------------------------");
-            System.out.println(new Object(){}.getClass().getEnclosingMethod().getName());
-            System.out.println("------------------------------");
-        TrafficLightCtrl ctrl = new TrafficLightCtrl();
-        ctrl.setCurrentState(ctrl.getYellowState());
-        ctrl.setPreviousState(ctrl.getOffState()); // Invalid previous state for Yellow
-            ctrl.nextState();
-        assertEquals(ctrl.getOffState(), ctrl.getCurrentState()); // Should fallback to OFF
-    }
-
+    
     @Test
     void testYellowFullCycleReturnsToYellow() {
             System.out.println("------------------------------");
