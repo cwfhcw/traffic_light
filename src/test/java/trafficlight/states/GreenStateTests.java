@@ -4,17 +4,19 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import trafficlight.ctrl.TrafficLightCtrl;
 
-class GreenStateTest {
+class GreenStateTests {
     @Test
-    void testNextStateFromGreen() {
+    void testGreenIsFollowedByYellow() {
         TrafficLightCtrl ctrl = new TrafficLightCtrl();
         ctrl.setCurrentState(ctrl.getGreenState());
-        ctrl.setPreviousState(ctrl.getRedState());
         ctrl.getGreenState().nextState(ctrl);
         assertEquals(ctrl.getYellowState(), ctrl.getCurrentState());
     }
+
     @Test
-    void testGetState() {
-        assertEquals(TrafficLightColor.GREEN, new GreenState().getState());
+    void testGreenTurnsLightGreen() {
+        TrafficLightCtrl ctrl = new TrafficLightCtrl();
+        ctrl.setCurrentState(ctrl.getGreenState());
+        assertEquals(TrafficLightColor.GREEN, ctrl.getCurrentState().getState());
     }
 }

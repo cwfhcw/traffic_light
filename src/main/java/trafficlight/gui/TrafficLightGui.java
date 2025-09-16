@@ -104,12 +104,12 @@ public class TrafficLightGui extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e){
         if (ACTION_COMMAND_NEXT.equals(e.getActionCommand())){
            System.out.println("Button pressed!");
-           System.out.println("----------------------------");
+           System.out.println();
            trafficLightCtrl.nextState();
         } else if (ACTION_COMMAND_AUTO_MODE.equals(e.getActionCommand())){
             isAutoMode = !isAutoMode;
             System.out.println("Auto Mode: "+isAutoMode);
-            System.out.println("----------------------------");
+            System.out.println();
 
         }
     }
