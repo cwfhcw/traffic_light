@@ -1,6 +1,9 @@
 # macOS system files
 .DS_Store
 
+# VS Code settings
+.vscode/
+
 # Created by https://www.gitignore.io/api/java,gradle,eclipse,intellij
 # Edit at https://www.gitignore.io/?templates=java,gradle,eclipse,intellij
 
