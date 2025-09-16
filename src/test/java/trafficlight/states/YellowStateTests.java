@@ -7,22 +7,22 @@ class YellowStateTests extends AbstractStateTests {
 
     @Test
     void testYellowIsFollowedByGreenWhenPrecededByRed() {
-    assertCycle(ctrl.getYellowState(),ctrl.getRedState(), 1, ctrl.getGreenState());
+    assertCycle(ctrl.getRedState(), ctrl.getYellowState(), 1, ctrl.getGreenState());
     }
 
     @Test
     void testYellowIsFollowedByRedWhenPrecededByGreen() {
-    assertCycle(ctrl.getYellowState(),ctrl.getGreenState(), 1, ctrl.getRedState());
+    assertCycle(ctrl.getGreenState(), ctrl.getYellowState(), 1, ctrl.getRedState());
     }
     
     @Test
     void testYellowHalfCycleReturnsToYellow() {
-    assertCycle(ctrl.getYellowState(), ctrl.getRedState(), 2, ctrl.getYellowState());
+    assertCycle( ctrl.getRedState(), ctrl.getYellowState(), 2, ctrl.getYellowState());
     }
 
     @Test
     void testYellowFullCycleReturnsToYellow() {
-    assertCycle(ctrl.getYellowState(), ctrl.getRedState(), 4, ctrl.getYellowState());
+    assertCycle(ctrl.getRedState(), ctrl.getYellowState(), 4, ctrl.getYellowState());
     }
 
     @Test
