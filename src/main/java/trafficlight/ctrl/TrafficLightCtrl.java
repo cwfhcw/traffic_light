@@ -74,32 +74,13 @@ public class TrafficLightCtrl {
         try {
             // Check for null states
             if (previousState == null || currentState == null) {
-                if (previousState == null) {
-                    System.out.println("Prev State Error! (cannot be null; is set to OFF now)");
-                    previousState = offState;
-                } else {
-                    System.out.println("Prev State: " + previousState.getState());
-                }
-                if (currentState == null) {
-                    System.out.println("Curr State Error! (cannot be null; is set to OFF now)");
-                    currentState = offState;
-                } else {
-                    System.out.println("Curr State: " + currentState.getState());
-                }
-                gui.setLight(offState.getState());
-                System.out.println();
-                return;
+                throw new IllegalStateException("ERROR: previousState or currentState is null.");
             }
-            // Check for invalid Yellow transition
+            // Check for invalid Yellow state transitions
             if (currentState.getState() == trafficlight.states.TrafficLightColor.YELLOW &&
                     !(previousState.getState() == trafficlight.states.TrafficLightColor.RED
                             || previousState.getState() == trafficlight.states.TrafficLightColor.GREEN)) {
-                System.out.println("Prev State Error! (" + previousState.getState() + " may not transition to YELLOW)");
-                System.out.println("Curr State: " + currentState.getState() + " (is set to OFF now)");
-                currentState = offState;
-                gui.setLight(offState.getState());
-                System.out.println();
-                return;
+                throw new IllegalStateException("ERROR: " + previousState.getState() + " may not transition to YELLOW.");
             }
             // Advance to next state and update GUI
             currentState.nextState(this);
@@ -107,8 +88,18 @@ public class TrafficLightCtrl {
             System.out.println("Prev State: " + previousState.getState());
             System.out.println("Curr State: " + currentState.getState());
             System.out.println();
+            // Reset to OFF state on unexpected exceptions
+        } catch (IllegalStateException e) {
+            System.out.println(e.getMessage());
+            previousState = offState;
+            currentState = offState;
+            gui.setLight(offState.getState());
+            System.out.println("Prev State: " + previousState.getState() + " (is set to OFF now)");
+            System.out.println("Curr State: " + currentState.getState() + " (is set to OFF now)");
+            System.out.println();
+            // Handle any other unexpected exceptions
         } catch (Exception e) {
-            System.out.println("Unexpected exception in nextState: " + e.getMessage());
+            System.out.println(e.getMessage());
             e.printStackTrace();
             System.out.println();
         }

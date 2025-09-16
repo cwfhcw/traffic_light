@@ -29,26 +29,26 @@ class TrafficLightCtrlExceptionTests {
 
     @Test
     void testNullCurrentStateExceptionHandling() {
-        ctrl.setCurrentState(null);
-        ctrl.setPreviousState(ctrl.getRedState());
-        ctrl.nextState();
-        assertEquals(ctrl.getOffState(), ctrl.getCurrentState(), "Current state should be set to OFF after null");
-        assertEquals(ctrl.getRedState(), ctrl.getPreviousState(), "Previous state should remain unchanged if not null");
+    ctrl.setCurrentState(null);
+    ctrl.setPreviousState(ctrl.getRedState());
+    ctrl.nextState();
+    assertEquals(ctrl.getOffState(), ctrl.getCurrentState(), "Current state should be set to OFF after null");
+    assertEquals(ctrl.getOffState(), ctrl.getPreviousState(), "Previous state should be set to OFF after exception");
     }
 
     @Test
     void testNullPreviousStateExceptionHandling() {
-        ctrl.setCurrentState(ctrl.getGreenState());
-        ctrl.setPreviousState(null);
-        ctrl.nextState();
-        assertEquals(ctrl.getGreenState(), ctrl.getCurrentState(), "Current state should remain unchanged if not null");
-        assertEquals(ctrl.getOffState(), ctrl.getPreviousState(), "Previous state should be set to offState after null");
+    ctrl.setCurrentState(ctrl.getGreenState());
+    ctrl.setPreviousState(null);
+    ctrl.nextState();
+    assertEquals(ctrl.getOffState(), ctrl.getCurrentState(), "Current state should be set to OFF after exception");
+    assertEquals(ctrl.getOffState(), ctrl.getPreviousState(), "Previous state should be set to OFF after exception");
     }
 
     @Test
     void testInvalidYellowTransitionExceptionHandling() {
         ctrl.setCurrentState(ctrl.getYellowState());
-        ctrl.setPreviousState(ctrl.getOffState()); // Not RED or GREEN
+        ctrl.setPreviousState(ctrl.getYellowState()); // Not RED or GREEN
         ctrl.nextState();
         assertEquals(ctrl.getOffState(), ctrl.getCurrentState(), "Current state should be set to offState after invalid yellow transition");
         assertEquals(ctrl.getOffState(), ctrl.getPreviousState(), "Previous state should be set to offState after invalid yellow transition");
