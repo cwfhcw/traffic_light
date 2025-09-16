@@ -6,7 +6,7 @@ class OffStateTests extends AbstractStateTests {
 
     @Test
     void testOffIsFollowedByRed() {
-    assertCycle(ctrl.getOffState(), ctrl.getOffState(), 1, ctrl.getRedState());
+        assertCycle(ctrl.getOffState(), ctrl.getOffState(), 1, ctrl.getRedState());
     }
 
     @Test

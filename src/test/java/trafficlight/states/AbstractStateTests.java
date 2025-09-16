@@ -33,5 +33,3 @@ public abstract class AbstractStateTests {
         assertEquals(expectedColor, ctrl.getCurrentState().getState());
     }
 }
-
-

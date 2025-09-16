@@ -6,10 +6,9 @@ import trafficlight.states.State;
 import trafficlight.states.TrafficLightColor;
 
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.Disabled;
+//import org.junit.jupiter.api.Disabled;
 
-
-@Disabled
+//@Disabled
 class TrafficLightCtrlExceptionTests {
     private TrafficLightCtrl ctrl;
 
