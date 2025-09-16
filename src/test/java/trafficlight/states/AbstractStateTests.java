@@ -12,15 +12,10 @@ public abstract class AbstractStateTests {
         ctrl = new TrafficLightCtrl();
     }
 
-    // Helper to set both current and previous state
-    protected void setStates(State previous, State current) {
-        ctrl.setPreviousState(previous);
-        ctrl.setCurrentState(current);
-    }
-
     // Helper to assert the traffic light cycle
     protected void assertCycle(State previous, State current, int steps, State result) {
-        setStates(previous, current);
+        ctrl.setPreviousState(previous);
+        ctrl.setCurrentState(current);
         for (int i = 0; i < steps; i++) {
             ctrl.nextState();
         }
