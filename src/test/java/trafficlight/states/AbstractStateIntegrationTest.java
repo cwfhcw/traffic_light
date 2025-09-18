@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.*;
 import trafficlight.ctrl.TrafficLightCtrl;
 
-public abstract class AbstractStateTests {
+public abstract class AbstractStateIntegrationTest {
     protected TrafficLightCtrl ctrl;
 
     @BeforeEach
@@ -12,7 +12,7 @@ public abstract class AbstractStateTests {
         ctrl = new TrafficLightCtrl();
     }
 
-    // Helper to assert the traffic light cycle
+    // asserting the traffic light cycle
     protected void assertCycle(State previous, State current, int steps, State result) {
         ctrl.setPreviousState(previous);
         ctrl.setCurrentState(current);
@@ -22,7 +22,7 @@ public abstract class AbstractStateTests {
         assertEquals(result, ctrl.getCurrentState());
     }
 
-    // Abstract test for verifying color of a state
+    // asserting correct gui color for states
     protected void assertStateColor(State state, TrafficLightColor expectedColor) {
         ctrl.setCurrentState(state);
         assertEquals(expectedColor, ctrl.getCurrentState().getState());
