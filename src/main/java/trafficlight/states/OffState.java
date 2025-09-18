@@ -3,7 +3,7 @@ package trafficlight.states;
 import trafficlight.ctrl.TrafficLightCtrl;
 
 public class OffState implements State {
-    public static final OffState INSTANCE = new OffState();
+    private static OffState instance;
     private OffState() {}
 
     public void nextState(TrafficLightCtrl context) {
@@ -12,5 +12,12 @@ public class OffState implements State {
     }
     public TrafficLightColor getState() {
         return TrafficLightColor.OFF;
+    }
+    
+    public static OffState getInstance() {
+        if (instance == null) {
+            instance = new OffState();
+        }
+        return instance;
     }
 }

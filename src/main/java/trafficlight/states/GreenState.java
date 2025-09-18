@@ -3,8 +3,15 @@ package trafficlight.states;
 import trafficlight.ctrl.TrafficLightCtrl;
 
 public class GreenState implements State {
-    public static final GreenState INSTANCE = new GreenState();
+    private static GreenState instance;
     private GreenState() {}
+
+    public static GreenState getInstance() {
+        if (instance == null) {
+            instance = new GreenState();
+        }
+        return instance;
+    }
 
     public void nextState(TrafficLightCtrl context) {
         context.setPreviousState(context.getCurrentState());

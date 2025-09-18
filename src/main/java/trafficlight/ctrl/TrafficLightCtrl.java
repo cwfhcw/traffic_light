@@ -25,10 +25,10 @@ public class TrafficLightCtrl {
     }
 
     private void initStates() {
-    greenState = trafficlight.states.GreenState.INSTANCE;
-    yellowState = trafficlight.states.YellowState.INSTANCE;
-    redState = trafficlight.states.RedState.INSTANCE;
-    offState = trafficlight.states.OffState.INSTANCE;
+    greenState = trafficlight.states.GreenState.getInstance();
+    yellowState = trafficlight.states.YellowState.getInstance();
+    redState = trafficlight.states.RedState.getInstance();
+    offState = trafficlight.states.OffState.getInstance();
     currentState = offState;
     previousState = offState;
 
