@@ -12,7 +12,7 @@ public abstract class AbstractStateIntegrationTest {
         ctrl = new TrafficLightCtrl();
     }
 
-    // asserting the traffic light cycle
+    // asserting a correctly working traffic light cycle
     protected void assertCycle(State previous, State current, int steps, State result) {
         ctrl.setPreviousState(previous);
         ctrl.setCurrentState(current);
@@ -22,7 +22,7 @@ public abstract class AbstractStateIntegrationTest {
         assertEquals(result, ctrl.getCurrentState());
     }
 
-    // asserting correct gui color for states
+    // asserting a correct gui color for a given state
     protected void assertStateColor(State state, TrafficLightColor expectedColor) {
         ctrl.setCurrentState(state);
         assertEquals(expectedColor, ctrl.getCurrentState().getState());
