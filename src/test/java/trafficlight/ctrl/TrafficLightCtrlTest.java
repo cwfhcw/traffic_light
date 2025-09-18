@@ -24,10 +24,8 @@ class TrafficLightCtrlTest {
         ctrl.setCurrentState(null);
         ctrl.setPreviousState(null);
         ctrl.nextState();
-        assertEquals(ctrl.getOffState(), ctrl.getCurrentState(),
-                "Current state should be set to offState when both states are null");
-        assertEquals(ctrl.getOffState(), ctrl.getPreviousState(),
-                "Previous state should be set to offState when both states are null");
+        assertEquals(ctrl.getOffState(), ctrl.getCurrentState());
+        assertEquals(ctrl.getOffState(), ctrl.getPreviousState());
     }
 
     @Test
@@ -35,30 +33,26 @@ class TrafficLightCtrlTest {
         ctrl.setCurrentState(null);
         ctrl.setPreviousState(ctrl.getRedState());
         ctrl.nextState();
-        assertEquals(ctrl.getOffState(), ctrl.getCurrentState(), "Current state should be set to OFF after null");
-        assertEquals(ctrl.getOffState(), ctrl.getPreviousState(),
-                "Previous state should be set to OFF after exception");
-    }
+        assertEquals(ctrl.getOffState(), ctrl.getCurrentState());
+        assertEquals(ctrl.getOffState(), ctrl.getPreviousState());
+        }
 
     @Test
     void testNullPreviousStateExceptionHandling() {
-        ctrl.setCurrentState(ctrl.getGreenState());
+        ctrl.setCurrentState(ctrl.getRedState());
         ctrl.setPreviousState(null);
         ctrl.nextState();
-        assertEquals(ctrl.getOffState(), ctrl.getCurrentState(), "Current state should be set to OFF after exception");
-        assertEquals(ctrl.getOffState(), ctrl.getPreviousState(),
-                "Previous state should be set to OFF after exception");
+        assertEquals(ctrl.getOffState(), ctrl.getCurrentState());
+        assertEquals(ctrl.getOffState(), ctrl.getPreviousState());
     }
 
     @Test
     void testInvalidYellowTransitionExceptionHandling() {
         ctrl.setCurrentState(ctrl.getYellowState());
-        ctrl.setPreviousState(ctrl.getYellowState()); // Not RED or GREEN
+        ctrl.setPreviousState(ctrl.getYellowState());
         ctrl.nextState();
-        assertEquals(ctrl.getOffState(), ctrl.getCurrentState(),
-                "Current state should be set to offState after invalid yellow transition");
-        assertEquals(ctrl.getOffState(), ctrl.getPreviousState(),
-                "Previous state should be set to offState after invalid yellow transition");
+        assertEquals(ctrl.getOffState(), ctrl.getCurrentState());
+        assertEquals(ctrl.getOffState(), ctrl.getPreviousState());
     }
 
     @Test
@@ -66,7 +60,7 @@ class TrafficLightCtrlTest {
         State throwingState = new State() {
             @Override
             public void nextState(TrafficLightCtrl ctrl) {
-                throw new RuntimeException("Dummy exception");
+                throw new RuntimeException();
             }
 
             @Override
@@ -76,8 +70,7 @@ class TrafficLightCtrlTest {
         };
         ctrl.setCurrentState(throwingState);
         ctrl.setPreviousState(ctrl.getRedState());
-        assertDoesNotThrow(ctrl::nextState, "nextState should catch unexpected exceptions and not throw");
-        assertEquals(throwingState, ctrl.getCurrentState(),
-                "Current state should remain unchanged after unexpected exception");
+        assertDoesNotThrow(() -> ctrl.nextState());
+        assertEquals(throwingState, ctrl.getCurrentState());
     }
 }
