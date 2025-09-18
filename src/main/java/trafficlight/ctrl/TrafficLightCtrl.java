@@ -25,12 +25,18 @@ public class TrafficLightCtrl {
     }
 
     private void initStates() {
+    System.out.println();
+    System.out.println("Initializing states:");
     greenState = trafficlight.states.GreenState.getInstance();
     yellowState = trafficlight.states.YellowState.getInstance();
     redState = trafficlight.states.RedState.getInstance();
     offState = trafficlight.states.OffState.getInstance();
+    System.out.println();
+
+    previousState = null;
     currentState = offState;
-    previousState = offState;
+    System.out.println("Init State: " + currentState.getState());
+    System.out.println();
 
     }
 
@@ -73,7 +79,7 @@ public class TrafficLightCtrl {
     public void nextState() {
         try {
             // Check for null states
-            if (previousState == null || currentState == null) {
+            if (currentState != offState && (previousState == null || currentState == null)) {
                 throw new IllegalStateException("CTRL ERROR: previousState or currentState is null.");
             }
             // Check for invalid Yellow state transitions
