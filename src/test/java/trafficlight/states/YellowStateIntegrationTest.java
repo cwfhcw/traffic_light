@@ -15,12 +15,12 @@ class YellowStateIntegrationTest extends AbstractStateIntegrationTest {
     }
 
     @Test
-    void does_yellow_half_cycle_return_to_yellow() {
+    void does_half_cycle_beginning_with_yellow_return_to_yellow() {
         assertCycle(ctrl.getRedState(), ctrl.getYellowState(), 2, ctrl.getYellowState());
     }
 
     @Test
-    void does_yellow_full_cycle_return_to_yellow() {
+    void does_full_cycle_beginning_with_yellow_return_to_yellow() {
         assertCycle(ctrl.getRedState(), ctrl.getYellowState(), 4, ctrl.getYellowState());
     }
 
