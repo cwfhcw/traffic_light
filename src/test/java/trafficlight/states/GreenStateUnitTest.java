@@ -10,7 +10,7 @@ class GreenStateUnitTest extends AbstractStateUnitTest {
 
     @BeforeEach
     void setUp() {
-        greenState = new GreenState();
+        greenState = GreenState.INSTANCE;
         mockYellowState = org.mockito.Mockito.mock(State.class);
     }
 

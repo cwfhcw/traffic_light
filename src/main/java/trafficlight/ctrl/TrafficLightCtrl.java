@@ -25,14 +25,12 @@ public class TrafficLightCtrl {
     }
 
     private void initStates() {
-        // Create states
-        greenState = new trafficlight.states.GreenState();
-        yellowState = new trafficlight.states.YellowState();
-        redState = new trafficlight.states.RedState();
-        offState = new trafficlight.states.OffState();
-        // Set initial state
-        currentState = offState;
-        previousState = offState;
+    greenState = trafficlight.states.GreenState.INSTANCE;
+    yellowState = trafficlight.states.YellowState.INSTANCE;
+    redState = trafficlight.states.RedState.INSTANCE;
+    offState = trafficlight.states.OffState.INSTANCE;
+    currentState = offState;
+    previousState = offState;
 
     }
 

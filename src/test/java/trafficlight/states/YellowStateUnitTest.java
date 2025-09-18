@@ -11,7 +11,7 @@ class YellowStateUnitTest extends AbstractStateUnitTest {
 
     @BeforeEach
     void setUp() {
-        yellowState = new YellowState();
+        yellowState = YellowState.INSTANCE;
         mockGreenState = org.mockito.Mockito.mock(State.class);
         mockRedState = org.mockito.Mockito.mock(State.class);
         org.mockito.Mockito.when(mockCtrl.getGreenState()).thenReturn(mockGreenState);
@@ -24,7 +24,7 @@ class YellowStateUnitTest extends AbstractStateUnitTest {
     }
 
     @Test
-    void does_nextState_invoke_green_when_called_from_yellow_preceded_by_red() {
+    void does_nextState_invoke_green_when_yellow_preceded_by_red() {
         // Given
         setPreviousState(mockRedState);
 
@@ -36,7 +36,7 @@ class YellowStateUnitTest extends AbstractStateUnitTest {
     }
 
     @Test
-    void does_nextState_invoke_red_when_called_from_yellow_preceded_by_green() {
+    void does_nextState_invoke_red_when_yellow_preceded_by_green() {
         // Given
         setPreviousState(mockGreenState);
 

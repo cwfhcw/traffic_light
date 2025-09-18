@@ -3,6 +3,9 @@ package trafficlight.states;
 import trafficlight.ctrl.TrafficLightCtrl;
 
 public class YellowState implements State {
+    public static final YellowState INSTANCE = new YellowState();
+    private YellowState() {}
+
     public void nextState(TrafficLightCtrl context) {
         State prev = context.getPreviousState();
         context.setPreviousState(context.getCurrentState());

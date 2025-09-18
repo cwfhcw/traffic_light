@@ -10,7 +10,7 @@ class OffStateUnitTest extends AbstractStateUnitTest {
 
     @BeforeEach
     void setUp() {
-        offState = new OffState();
+        offState = OffState.INSTANCE;
         mockRedState = org.mockito.Mockito.mock(State.class);
     }
 
